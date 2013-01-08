@@ -5,15 +5,15 @@
 Summary:	Connection Manager
 Summary(pl.UTF-8):	Zarządca połączeń
 Name:		connman
-Version:	1.9
+Version:	1.10
 Release:	1
 License:	GPL v2
 Group:		Networking/Daemons
 Source0:	http://www.kernel.org/pub/linux/network/connman/%{name}-%{version}.tar.xz
-# Source0-md5:	ba27f49c9d94bc2c885c9423fd4fc7bd
+# Source0-md5:	e20b8f0b5c6b7437b7544e278f3070ad
 URL:		http://connman.net/
-BuildRequires:	glib2-devel >= 1:2.28
 BuildRequires:	dbus-devel >= 1.4
+BuildRequires:	glib2-devel >= 1:2.28
 BuildRequires:	gnutls-devel
 BuildRequires:	iptables-devel
 BuildRequires:	pkgconfig
@@ -23,6 +23,8 @@ BuildRequires:	systemd-devel
 BuildRequires:	tar >= 1:1.22
 %{?with_wimax:BuildRequires:	wimax-devel}
 BuildRequires:	xz
+Requires:	dbus >= 1.4
+Requires:	glib2 >= 1:2.28
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		skip_post_check_so	libppp-plugin.so.*
@@ -55,6 +57,8 @@ Summary:	WiMAX plugin for ConnMan
 Summary(pl.UTF-8):	Wtyczka WiMAX dla ConnMana
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	dbus-devel >= 1.4
+Requires:	glib2-devel >= 1:2.28
 
 %description plugin-wimax
 WiMAX plugin for ConnMan.
@@ -107,7 +111,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/connman/{plugins,scripts}/*.la
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/connman/{plugins,plugins-vpn,scripts}/*.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -116,24 +120,30 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README TODO
 %attr(755,root,root) %{_sbindir}/connmand
+%attr(755,root,root) %{_sbindir}/connman-vpnd
 %dir %{_libdir}/connman
 %dir %{_libdir}/connman/plugins
 %attr(755,root,root) %{_libdir}/connman/plugins/hh2serial-gps.so
 %attr(755,root,root) %{_libdir}/connman/plugins/iospm.so
-%attr(755,root,root) %{_libdir}/connman/plugins/l2tp.so
-%attr(755,root,root) %{_libdir}/connman/plugins/openconnect.so
-%attr(755,root,root) %{_libdir}/connman/plugins/openvpn.so
-%attr(755,root,root) %{_libdir}/connman/plugins/pptp.so
 %attr(755,root,root) %{_libdir}/connman/plugins/tist.so
-%attr(755,root,root) %{_libdir}/connman/plugins/vpnc.so
+%dir %{_libdir}/connman/plugins-vpn
+%attr(755,root,root) %{_libdir}/connman/plugins-vpn/l2tp.so
+%attr(755,root,root) %{_libdir}/connman/plugins-vpn/openconnect.so
+%attr(755,root,root) %{_libdir}/connman/plugins-vpn/openvpn.so
+%attr(755,root,root) %{_libdir}/connman/plugins-vpn/pptp.so
+%attr(755,root,root) %{_libdir}/connman/plugins-vpn/vpnc.so
 %dir %{_libdir}/connman/scripts
 %attr(755,root,root) %{_libdir}/connman/scripts/libppp-plugin.so*
 %attr(755,root,root) %{_libdir}/connman/scripts/openconnect-script
 %attr(755,root,root) %{_libdir}/connman/scripts/openvpn-script
 /etc/dbus-1/system.d/connman.conf
 /etc/dbus-1/system.d/connman-nmcompat.conf
+/etc/dbus-1/system.d/connman-vpn-dbus.conf
+/usr/share/dbus-1/system-services/net.connman.vpn.service
 /usr/share/polkit-1/actions/net.connman.policy
+/usr/share/polkit-1/actions/net.connman.vpn.policy
 %{systemdunitdir}/connman.service
+%{systemdunitdir}/connman-vpn.service
 
 %files plugin-wimax
 %defattr(644,root,root,755)
