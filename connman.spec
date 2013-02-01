@@ -1,16 +1,12 @@
-#
-# Conditional build:
-%bcond_without	wimax		# Intel WiMAX support
-#
 Summary:	Connection Manager
 Summary(pl.UTF-8):	Zarządca połączeń
 Name:		connman
-Version:	1.10
+Version:	1.11
 Release:	1
 License:	GPL v2
 Group:		Networking/Daemons
 Source0:	http://www.kernel.org/pub/linux/network/connman/%{name}-%{version}.tar.xz
-# Source0-md5:	e20b8f0b5c6b7437b7544e278f3070ad
+# Source0-md5:	72cd18041abb17997b32fe6df6b52f5c
 URL:		http://connman.net/
 BuildRequires:	dbus-devel >= 1.4
 BuildRequires:	glib2-devel >= 1:2.28
@@ -21,10 +17,10 @@ BuildRequires:	polkit-devel
 BuildRequires:	ppp-plugin-devel
 BuildRequires:	systemd-devel
 BuildRequires:	tar >= 1:1.22
-%{?with_wimax:BuildRequires:	wimax-devel}
 BuildRequires:	xz
 Requires:	dbus >= 1.4
 Requires:	glib2 >= 1:2.28
+Obsoletes:	connman-plugin-wimax
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		skip_post_check_so	libppp-plugin.so.*
@@ -52,20 +48,6 @@ rozwiązywanie nazw domenowych, także są implementowane poprzez
 wtyczki. Takie podejście do wtyczek pozwala na łatwe adaptowanie i
 modyfikowanie pod kątem różnych przypadków użycia.
 
-%package plugin-wimax
-Summary:	WiMAX plugin for ConnMan
-Summary(pl.UTF-8):	Wtyczka WiMAX dla ConnMana
-Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
-Requires:	dbus-devel >= 1.4
-Requires:	glib2-devel >= 1:2.28
-
-%description plugin-wimax
-WiMAX plugin for ConnMan.
-
-%description plugin-wimax -l pl.UTF-8
-Wtyczka WiMAX dla ConnMana.
-
 %package devel
 Summary:	Header files for ConnMan plugins
 Summary(pl.UTF-8):	Pliki nagłówkowe dla wtyczek ConnMana
@@ -90,7 +72,6 @@ Pliki nagłówkowe dla wtyczek ConnMana.
 	--disable-silent-rules \
 	--enable-hh2serial-gps \
 	--enable-iospm \
-	%{?with_wimax:--enable-iwmx} \
 	--enable-l2tp \
 	--enable-nmcompat \
 	--enable-openconnect \
@@ -144,10 +125,6 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/polkit-1/actions/net.connman.vpn.policy
 %{systemdunitdir}/connman.service
 %{systemdunitdir}/connman-vpn.service
-
-%files plugin-wimax
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/connman/plugins/iwmxsdk.so
 
 %files devel
 %defattr(644,root,root,755)
