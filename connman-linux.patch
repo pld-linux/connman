@@ -1,0 +1,10 @@
+--- connman-1.12/src/tethering.c.orig	2012-12-22 22:52:47.000000000 +0100
++++ connman-1.12/src/tethering.c	2013-03-01 20:52:42.438881056 +0100
+@@ -31,6 +31,7 @@
+ #include <stdio.h>
+ #include <sys/ioctl.h>
+ #include <net/if.h>
++#include <netinet/ip6.h>
+ #include <linux/sockios.h>
+ #include <string.h>
+ #include <fcntl.h>
