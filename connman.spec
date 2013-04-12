@@ -1,18 +1,18 @@
 Summary:	Connection Manager
 Summary(pl.UTF-8):	Zarządca połączeń
 Name:		connman
-Version:	1.12
+Version:	1.13
 Release:	1
 License:	GPL v2
 Group:		Networking/Daemons
 Source0:	http://www.kernel.org/pub/linux/network/connman/%{name}-%{version}.tar.xz
-# Source0-md5:	6386d04ccbfd66c68e94ae7a8859a3a4
+# Source0-md5:	0623d4afe3792378da5818e2970c5f1c
 Patch0:		%{name}-linux.patch
 URL:		http://connman.net/
 BuildRequires:	dbus-devel >= 1.4
 BuildRequires:	glib2-devel >= 1:2.28
 BuildRequires:	gnutls-devel
-BuildRequires:	iptables-devel
+BuildRequires:	iptables-devel >= 1.4.11
 BuildRequires:	pkgconfig
 BuildRequires:	polkit-devel
 BuildRequires:	ppp-plugin-devel
@@ -21,6 +21,7 @@ BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 Requires:	dbus >= 1.4
 Requires:	glib2 >= 1:2.28
+Requires:	iptables-libs >= 1.4.11
 Obsoletes:	connman-plugin-wimax
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
