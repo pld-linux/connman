@@ -1,12 +1,12 @@
 Summary:	Connection Manager
 Summary(pl.UTF-8):	Zarządca połączeń
 Name:		connman
-Version:	1.13
+Version:	1.15
 Release:	1
 License:	GPL v2
 Group:		Networking/Daemons
 Source0:	http://www.kernel.org/pub/linux/network/connman/%{name}-%{version}.tar.xz
-# Source0-md5:	0623d4afe3792378da5818e2970c5f1c
+# Source0-md5:	e785c0c4564bfffb5215272f1be6f17c
 Patch0:		%{name}-linux.patch
 URL:		http://connman.net/
 BuildRequires:	dbus-devel >= 1.4
