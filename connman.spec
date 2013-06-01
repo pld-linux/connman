@@ -128,6 +128,8 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/polkit-1/actions/net.connman.vpn.policy
 %{systemdunitdir}/connman.service
 %{systemdunitdir}/connman-vpn.service
+%{_mandir}/man5/connman.conf.5*
+%{_mandir}/man8/connman.8*
 
 %files devel
 %defattr(644,root,root,755)
