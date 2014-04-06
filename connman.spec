@@ -1,12 +1,12 @@
 Summary:	Connection Manager
 Summary(pl.UTF-8):	Zarządca połączeń
 Name:		connman
-Version:	1.22
+Version:	1.23
 Release:	1
 License:	GPL v2
 Group:		Networking/Daemons
 Source0:	https://www.kernel.org/pub/linux/network/connman/%{name}-%{version}.tar.xz
-# Source0-md5:	4f45ab2035d1028a287d14427ce61774
+# Source0-md5:	f835b8137ab198e0af5deab043e2890a
 Patch0:		%{name}-linux.patch
 URL:		https://connman.net/
 BuildRequires:	dbus-devel >= 1.4
@@ -82,7 +82,6 @@ Pliki nagłówkowe dla wtyczek ConnMana.
 	--enable-openvpn \
 	--enable-polkit \
 	--enable-pptp \
-	--enable-threads \
 	--enable-tist \
 	--enable-vpnc \
 	--with-openconnect=/usr/sbin/openconnect \
