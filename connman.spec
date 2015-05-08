@@ -1,12 +1,12 @@
 Summary:	Connection Manager
 Summary(pl.UTF-8):	Zarządca połączeń
 Name:		connman
-Version:	1.28
-Release:	2
+Version:	1.29
+Release:	1
 License:	GPL v2
 Group:		Networking/Daemons
 Source0:	https://www.kernel.org/pub/linux/network/connman/%{name}-%{version}.tar.xz
-# Source0-md5:	6e07c93877f80bb73c9d4dbfc697f3fc
+# Source0-md5:	5283884504860f5fba2e6f489f517293
 Patch0:		%{name}-linux.patch
 URL:		https://connman.net/
 BuildRequires:	dbus-devel >= 1.4
@@ -103,6 +103,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README TODO
+%attr(755,root,root) %{_bindir}/connmanctl
 %attr(755,root,root) %{_sbindir}/connmand
 %attr(755,root,root) %{_sbindir}/connman-vpnd
 %dir %{_libdir}/connman
@@ -128,6 +129,7 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/polkit-1/actions/net.connman.vpn.policy
 %{systemdunitdir}/connman.service
 %{systemdunitdir}/connman-vpn.service
+%{_mandir}/man1/connmanctl.1*
 %{_mandir}/man5/connman.conf.5*
 %{_mandir}/man8/connman.8*
 
