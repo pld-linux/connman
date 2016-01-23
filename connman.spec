@@ -1,12 +1,12 @@
 Summary:	Connection Manager
 Summary(pl.UTF-8):	Zarządca połączeń
 Name:		connman
-Version:	1.30
+Version:	1.31
 Release:	1
 License:	GPL v2
 Group:		Networking/Daemons
 Source0:	https://www.kernel.org/pub/linux/network/connman/%{name}-%{version}.tar.xz
-# Source0-md5:	4a3efdbd6796922db9c6f66da57887fa
+# Source0-md5:	cb1c413fcc4f49430294bbd7a92f5f3c
 Patch0:		%{name}-linux.patch
 URL:		https://connman.net/
 BuildRequires:	dbus-devel >= 1.4
@@ -97,6 +97,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/connman/{plugins,plugins-vpn,scripts}/*.la
 
+install -d $RPM_BUILD_ROOT/var/run/connman
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -104,8 +106,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README TODO
 %attr(755,root,root) %{_bindir}/connmanctl
-%attr(755,root,root) %{_sbindir}/connmand
 %attr(755,root,root) %{_sbindir}/connman-vpnd
+%attr(755,root,root) %{_sbindir}/connmand
+%attr(755,root,root) %{_sbindir}/connmand-wait-online
 %dir %{_libdir}/connman
 %dir %{_libdir}/connman/plugins
 %attr(755,root,root) %{_libdir}/connman/plugins/hh2serial-gps.so
@@ -129,9 +132,16 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/polkit-1/actions/net.connman.vpn.policy
 %{systemdunitdir}/connman.service
 %{systemdunitdir}/connman-vpn.service
+%{systemdunitdir}/connman-wait-online.service
+%{systemdtmpfilesdir}/connman_resolvconf.conf
+%dir /var/run/connman
 %{_mandir}/man1/connmanctl.1*
 %{_mandir}/man5/connman.conf.5*
+%{_mandir}/man5/connman-service.config.5*
+%{_mandir}/man5/connman-vpn.conf.5*
+%{_mandir}/man5/connman-vpn-provider.config.5*
 %{_mandir}/man8/connman.8*
+%{_mandir}/man8/connman-vpn.8*
 
 %files devel
 %defattr(644,root,root,755)
