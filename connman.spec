@@ -1,18 +1,21 @@
+#
+# Conditional build:
+%bcond_with	nftables	# nftables instead of iptables
+
 Summary:	Connection Manager
 Summary(pl.UTF-8):	Zarządca połączeń
 Name:		connman
-Version:	1.33
-Release:	4
+Version:	1.34
+Release:	1
 License:	GPL v2
 Group:		Networking/Daemons
 Source0:	https://www.kernel.org/pub/linux/network/connman/%{name}-%{version}.tar.xz
-# Source0-md5:	c51903fd3e7a6a371d12ac5d72a1fa01
+# Source0-md5:	e200028702c831d5f535d20d61e608ef
 Patch0:		%{name}-linux.patch
 URL:		https://connman.net/
 BuildRequires:	dbus-devel >= 1.4
 BuildRequires:	glib2-devel >= 1:2.28
 BuildRequires:	gnutls-devel
-BuildRequires:	iptables-devel >= 1.4.11
 BuildRequires:	pkgconfig
 BuildRequires:	polkit-devel
 BuildRequires:	ppp-plugin-devel
@@ -20,9 +23,20 @@ BuildRequires:	readline-devel
 BuildRequires:	systemd-devel
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
+%if %{with nftables}
+BuildRequires:	libmnl-devel >= 1.0.0
+BuildRequires:	libnftnl-devel >= 1.0.4
+%else
+BuildRequires:	iptables-devel >= 1.4.11
+%endif
 Requires:	dbus >= 1.4
 Requires:	glib2 >= 1:2.28
+%if %{with nftables}
+Requires:	libmnl >= 1.0.0
+Requires:	libnftnl >= 1.0.4
+%else
 Requires:	iptables-libs >= 1.4.11
+%endif
 Obsoletes:	connman-plugin-wimax
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -69,13 +83,12 @@ Pliki nagłówkowe dla wtyczek ConnMana.
 
 %build
 %configure \
-	L2TP=/usr/sbin/xl2tpd \
-	PPPD=/usr/sbin/pppd \
-	PPTP=/usr/sbin/pptp \
+	IPTABLES_SAVE=/usr/sbin/iptables-save \
 	WPASUPPLICANT=/usr/sbin/wpa_supplicant \
 	--disable-silent-rules \
 	--enable-hh2serial-gps \
 	--enable-iospm \
+	--enable-iwd \
 	--enable-l2tp \
 	--enable-nmcompat \
 	--enable-openconnect \
@@ -84,8 +97,12 @@ Pliki nagłówkowe dla wtyczek ConnMana.
 	--enable-pptp \
 	--enable-tist \
 	--enable-vpnc \
+	%{?with_nftables:--with-firewall=nftables} \
+	--with-l2tp=/usr/sbin/xl2tpd \
 	--with-openconnect=/usr/sbin/openconnect \
 	--with-openvpn=/usr/sbin/openvpn \
+	--with-pppd=/usr/sbin/pppd \
+	--with-pptp=/usr/sbin/pptp \
 	--with-vpnc=/usr/bin/vpnc
 %{__make}
 
