@@ -5,13 +5,12 @@
 Summary:	Connection Manager
 Summary(pl.UTF-8):	Zarządca połączeń
 Name:		connman
-Version:	1.35
+Version:	1.36
 Release:	1
 License:	GPL v2
 Group:		Networking/Daemons
 Source0:	https://www.kernel.org/pub/linux/network/connman/%{name}-%{version}.tar.xz
-# Source0-md5:	bae37b45ee9b3db5ec8115188f8a7652
-Patch0:		%{name}-linux.patch
+# Source0-md5:	dae77d9c904d2c223ae849e32079d57e
 URL:		https://connman.net/
 BuildRequires:	dbus-devel >= 1.4
 BuildRequires:	glib2-devel >= 1:2.28
@@ -79,7 +78,6 @@ Pliki nagłówkowe dla wtyczek ConnMana.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %configure \
@@ -141,9 +139,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/connman/scripts/libppp-plugin.so*
 %attr(755,root,root) %{_libdir}/connman/scripts/openconnect-script
 %attr(755,root,root) %{_libdir}/connman/scripts/openvpn-script
-/etc/dbus-1/system.d/connman.conf
-/etc/dbus-1/system.d/connman-nmcompat.conf
-/etc/dbus-1/system.d/connman-vpn-dbus.conf
+/usr/share/dbus-1/system.d/connman.conf
+/usr/share/dbus-1/system.d/connman-nmcompat.conf
+/usr/share/dbus-1/system.d/connman-vpn-dbus.conf
 /usr/share/dbus-1/system-services/net.connman.vpn.service
 /usr/share/polkit-1/actions/net.connman.policy
 /usr/share/polkit-1/actions/net.connman.vpn.policy
