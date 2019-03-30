@@ -5,15 +5,15 @@
 Summary:	Connection Manager
 Summary(pl.UTF-8):	Zarządca połączeń
 Name:		connman
-Version:	1.36
+Version:	1.37
 Release:	1
 License:	GPL v2
 Group:		Networking/Daemons
 Source0:	https://www.kernel.org/pub/linux/network/connman/%{name}-%{version}.tar.xz
-# Source0-md5:	dae77d9c904d2c223ae849e32079d57e
+# Source0-md5:	75012084f14fb63a84b116e66c6e94fb
 URL:		https://connman.net/
 BuildRequires:	dbus-devel >= 1.4
-BuildRequires:	glib2-devel >= 1:2.28
+BuildRequires:	glib2-devel >= 1:2.40
 BuildRequires:	gnutls-devel
 BuildRequires:	pkgconfig
 BuildRequires:	polkit-devel
@@ -29,7 +29,7 @@ BuildRequires:	libnftnl-devel >= 1.0.4
 BuildRequires:	iptables-devel >= 1.4.11
 %endif
 Requires:	dbus >= 1.4
-Requires:	glib2 >= 1:2.28
+Requires:	glib2 >= 1:2.40
 %if %{with nftables}
 Requires:	libmnl >= 1.0.0
 Requires:	libnftnl >= 1.0.4
