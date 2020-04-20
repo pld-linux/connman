@@ -5,12 +5,12 @@
 Summary:	Connection Manager
 Summary(pl.UTF-8):	Zarządca połączeń
 Name:		connman
-Version:	1.37
-Release:	2
+Version:	1.38
+Release:	1
 License:	GPL v2
 Group:		Networking/Daemons
 Source0:	https://www.kernel.org/pub/linux/network/connman/%{name}-%{version}.tar.xz
-# Source0-md5:	75012084f14fb63a84b116e66c6e94fb
+# Source0-md5:	1ed8745354c7254bdfd4def54833ee94
 URL:		https://connman.net/
 BuildRequires:	dbus-devel >= 1.4
 BuildRequires:	glib2-devel >= 1:2.40
@@ -82,6 +82,7 @@ Pliki nagłówkowe dla wtyczek ConnMana.
 %build
 %configure \
 	IPTABLES_SAVE=/usr/sbin/iptables-save \
+	PPPD=/usr/sbin/pppd \
 	WPASUPPLICANT=/usr/sbin/wpa_supplicant \
 	--disable-silent-rules \
 	--enable-hh2serial-gps \
@@ -99,7 +100,6 @@ Pliki nagłówkowe dla wtyczek ConnMana.
 	--with-l2tp=/usr/sbin/xl2tpd \
 	--with-openconnect=/usr/sbin/openconnect \
 	--with-openvpn=/usr/sbin/openvpn \
-	--with-pppd=/usr/sbin/pppd \
 	--with-pptp=/usr/sbin/pptp \
 	--with-vpnc=/usr/bin/vpnc
 %{__make}
@@ -135,10 +135,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/connman/plugins-vpn/openvpn.so
 %attr(755,root,root) %{_libdir}/connman/plugins-vpn/pptp.so
 %attr(755,root,root) %{_libdir}/connman/plugins-vpn/vpnc.so
+%attr(755,root,root) %{_libdir}/connman/plugins-vpn/wireguard.so
 %dir %{_libdir}/connman/scripts
 %attr(755,root,root) %{_libdir}/connman/scripts/libppp-plugin.so*
-%attr(755,root,root) %{_libdir}/connman/scripts/openconnect-script
 %attr(755,root,root) %{_libdir}/connman/scripts/openvpn-script
+%attr(755,root,root) %{_libdir}/connman/scripts/vpn-script
 /usr/share/dbus-1/system.d/connman.conf
 /usr/share/dbus-1/system.d/connman-nmcompat.conf
 /usr/share/dbus-1/system.d/connman-vpn-dbus.conf
