@@ -112,7 +112,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/connman/{plugins,plugins-vpn,scripts}/*.la
 
-install -d $RPM_BUILD_ROOT/var/run/connman
+install -d $RPM_BUILD_ROOT/var/{lib/connman{,-vpn},run/connman}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -150,6 +150,8 @@ rm -rf $RPM_BUILD_ROOT
 %{systemdunitdir}/connman-vpn.service
 %{systemdunitdir}/connman-wait-online.service
 %{systemdtmpfilesdir}/connman_resolvconf.conf
+%dir /var/lib/connman
+%dir /var/lib/connman-vpn
 %dir /var/run/connman
 %{_mandir}/man1/connmanctl.1*
 %{_mandir}/man5/connman.conf.5*
