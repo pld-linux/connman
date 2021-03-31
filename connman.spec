@@ -114,12 +114,16 @@ rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT/var/{lib/connman{,-vpn},run/connman}
 
+install -D src/main.conf $RPM_BUILD_ROOT%{_sysconfdir}/connman/main.conf
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README TODO
+%dir %{_sysconfdir}/connman
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/connman/main.conf
 %attr(755,root,root) %{_bindir}/connmanctl
 %attr(755,root,root) %{_sbindir}/connman-vpnd
 %attr(755,root,root) %{_sbindir}/connmand
