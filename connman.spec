@@ -36,7 +36,7 @@ Requires:	libnftnl >= 1.0.4
 %else
 Requires:	iptables-libs >= 1.4.11
 %endif
-Obsoletes:	connman-plugin-wimax
+Obsoletes:	connman-plugin-wimax < 1.11
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		skip_post_check_so	libppp-plugin.so.*
