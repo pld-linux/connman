@@ -15,6 +15,7 @@ URL:		https://connman.net/
 BuildRequires:	dbus-devel >= 1.4
 BuildRequires:	glib2-devel >= 1:2.40
 BuildRequires:	gnutls-devel
+BuildRequires:	libmnl-devel >= 1.0.0
 BuildRequires:	pkgconfig
 BuildRequires:	polkit-devel
 BuildRequires:	ppp-plugin-devel
@@ -23,15 +24,14 @@ BuildRequires:	systemd-devel
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 %if %{with nftables}
-BuildRequires:	libmnl-devel >= 1.0.0
 BuildRequires:	libnftnl-devel >= 1.0.4
 %else
 BuildRequires:	iptables-devel >= 1.4.11
 %endif
 Requires:	dbus >= 1.4
 Requires:	glib2 >= 1:2.40
-%if %{with nftables}
 Requires:	libmnl >= 1.0.0
+%if %{with nftables}
 Requires:	libnftnl >= 1.0.4
 %else
 Requires:	iptables-libs >= 1.4.11
